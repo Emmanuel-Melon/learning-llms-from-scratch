@@ -11,5 +11,5 @@ Through ULII, I've gathered the following key legal documents to serve as the kn
 
 ## Retrieve, Extract, Transform, and Generate (RAG)
 
-RAG is just an architectural pattern for building AI applications and services; RAG allows us to retrieve, extract, transform, and generate (RAG) content.
+RAG is just an architectural pattern for building AI applications and services; RAG allows us to retrieve, extract, transform, and generate content.
 
