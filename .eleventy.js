@@ -50,7 +50,7 @@ module.exports = function (eleventyConfig) {
   return {
     dir: {
       input: ".",
-      includes: "_includes",
+      includes: "/src/_includes",
       output: "_site",
     },
     templateFormats: ["md", "njk", "html"],
