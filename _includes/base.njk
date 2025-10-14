@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or metadata.title }}</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/layout.css">
+</head>
+<body>
+    <nav class="navbar-container">
+        <div class="navbar-content">
+            <a href="/" class="navbar-brand">Understanding AI</a>
+            <ul class="navbar-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/chapters">Chapters</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        {{ content | safe }}
+    </main>
+    <footer class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Understanding AI</h3>
+                <ul class="footer-links">
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/chapters">Chapters</a></li>
+                    <li><a href="/glossary">Glossary</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="/references">References</a></li>
+                    <li><a href="/tools">Tools</a></li>
+                    <li><a href="/examples">Examples</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Learning LLMs from Scratch</p>
+        </div>
+    </footer>
+</html>

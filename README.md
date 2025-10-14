@@ -9,6 +9,8 @@ Welcome to my open notebook on learning AI and machine learning!
 
 This journey transformed AI from a black box into a set of understandable, composable tools. And the best part? You don't need expensive hardware or advanced degrees to start—just curiosity and a willingness to build.
 
+{% ahamoment "An embedding is a direction in semantic space. The magic is in the angle between the vectors, not the numbers themselves." %}
+
 **The Problem I Had**:
 
 When I started learning AI, I kept hitting tutorials that either:
@@ -240,15 +242,13 @@ We'll use Transformers.js to explore AI concepts through practical examples. The
   - Familiar API for those who know PyTorch or TensorFlow.js
   - TypeScript support included
 
-```javascript
-// Real-time sentiment analysis in the browser
+{% codeblock "// Real-time sentiment analysis in the browser
 const analyzeText = async (text) => {
   const classifier = await pipeline(
-    "sentiment-analysis",
-    "Xenova/distilbert-base-uncased-finetuned-sst-2-english",
+    \"sentiment-analysis\",
+    \"Xenova/distilbert-base-uncased-finetuned-sst-2-english\",
   );
   return await classifier(text);
-};
-```
+};", "javascript" %}
 
 > 💡 The goal is to understand concepts so we'll focus on core ML principles. The knowledge you gain here will make it easier to pick up other tools and frameworks when you need to work at scale!

@@ -1,0 +1,487 @@
+/* Main CSS file for your Eleventy site */
+:root {
+  --primary: #2563eb;
+  --secondary: #4f46e5;
+  --dark: #1e293b;
+  --light: #f8fafc;
+  --gray: #64748b;
+  --max-width: 800px;
+}
+
+/* Base styles */
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
+  line-height: 1.8;
+  color: var(--dark);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background-color: #ffffff;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-rendering: optimizeLegibility;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.3;
+  margin: 2.5rem 0 1.5rem;
+  color: #1a202c;
+  font-weight: 700;
+  position: relative;
+}
+
+h1 {
+  font-size: 2.5rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.3rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #2d3748;
+}
+
+/* Code Block Component - Styled like Aha! Moment */
+.code-block-container {
+  /* Layout and Spacing */
+  width: 100%;
+  max-width: 1300px;
+  margin: 2rem auto;
+  position: relative;
+
+  /* Border Styling */
+  border: 2px dashed #d1d5db;
+  border-radius: 0.25rem;
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.code-block-language {
+  /* Label styling similar to Aha! Moment */
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  padding: 0 0.5rem;
+  background-color: white;
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: #6b7280;
+  z-index: 10;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.code-block-copy {
+  /* Button styling */
+  background: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.code-block-copy:hover {
+  background: #e5e7eb;
+  border-color: #9ca3af;
+}
+
+.code-block-copy:active {
+  background: #d1d5db;
+}
+
+/* Code content area */
+.code-block-container pre {
+  margin: 0;
+  padding: 1.25rem;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: "Fira Code", "Consolas", monospace;
+  line-height: 1.5;
+  font-size: 0.95em;
+  color: #1e293b;
+  white-space: pre;
+  tab-size: 2;
+}
+
+/* Syntax highlighting colors for light theme */
+.code-block-container .token.comment,
+.code-block-container .token.prolog,
+.code-block-container .token.doctype,
+.code-block-container .token.cdata {
+  color: #64748b;
+  font-style: italic;
+}
+
+.code-block-container .token.punctuation {
+  color: #94a3b8;
+}
+
+.code-block-container .token.property,
+.code-block-container .token.tag,
+.code-block-container .token.boolean,
+.code-block-container .token.number,
+.code-block-container .token.constant,
+.code-block-container .token.symbol {
+  color: #f59e0b;
+}
+
+.code-block-container .token.selector,
+.code-block-container .token.attr-name,
+.code-block-container .token.string,
+.code-block-container .token.char,
+.code-block-container .token.builtin {
+  color: #10b981;
+}
+
+.code-block-container .token.operator,
+.code-block-container .token.entity,
+.code-block-container .token.url,
+.code-block-container .language-css .token.string,
+.code-block-container .style .token.string {
+  color: #3b82f6;
+}
+
+.code-block-container .token.atrule,
+.code-block-container .token.attr-value,
+.code-block-container .token.keyword {
+  color: #8b5cf6;
+}
+
+.code-block-container .token.function,
+.code-block-container .token.class-name {
+  color: #3b82f6;
+}
+
+.code-block-container .token.regex,
+.code-block-container .token.important,
+.code-block-container .token.variable {
+  color: #f43f5e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .code-block-container {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+
+  .code-block-container pre {
+    border-radius: 0;
+  }
+}
+
+/* Customizing inline code */
+:not(pre) > code {
+  background-color: #e9e9e9;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #d6336c;
+}
+
+/* Syntax highlighting colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #5c6370;
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #abb2bf;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #d19a66;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #98c379;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #56b6c2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #c678dd;
+}
+
+.token.function,
+.token.class-name {
+  color: #61afef;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #e06c75;
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+a:hover {
+  color: var(--secondary);
+  border-bottom-color: currentColor;
+  text-decoration: none;
+}
+
+/* Lists */
+ul,
+ol {
+  padding-left: 2.5rem;
+  margin: 2rem 0;
+  position: relative;
+  list-style: none;
+}
+
+/* Hand-drawn list items */
+ul > li,
+ol > li {
+  position: relative;
+  margin-bottom: 1.25rem;
+  line-height: 1.7;
+  padding-left: 1.5rem;
+}
+
+/* Hand-drawn bullet points */
+ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1.5rem;
+  top: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
+  border: 2px solid #1c1917;
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 1);
+  transform: rotate(15deg);
+}
+
+/* Hand-drawn numbers for ordered lists */
+ol {
+  counter-reset: item;
+}
+
+ol > li::before {
+  counter-increment: item;
+  content: counter(item);
+  position: absolute;
+  left: -2rem;
+  top: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
+  border: 2px solid #1e3a8a;
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.8em;
+  color: #1e3a8a;
+  transform: rotate(-5deg);
+}
+
+/* Nested lists */
+ul ul,
+ol ul,
+ul ol,
+ol ol {
+  margin: 0.75rem 0 0.75rem 1.5rem;
+}
+
+/* Different colors for nested list items */
+ul > li > ul > li::before {
+  background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 100%);
+  border-color: #3730a3;
+}
+
+ol > li > ol > li::before {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border-color: #065f46;
+  color: #065f46;
+}
+
+/* Hand-drawn style for the last level of nesting */
+ul > li > ul > li > ul > li::before,
+ol > li > ol > li > ol > li::before {
+  background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+  border-color: #991b1b;
+  transform: rotate(-15deg);
+}
+
+/* Hover effects */
+ul > li:hover::before,
+ol > li:hover::before {
+  transform: scale(1.1) rotate(0deg);
+  transition: transform 0.2s ease;
+}
+
+/* Blockquotes */
+blockquote {
+  margin: 1.5rem 0;
+  padding: 0.5rem 1.5rem;
+  border-left: 4px solid #e2e8f0;
+  color: #4a5568;
+  font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  body {
+    padding: 1.25rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-top: 1rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  pre {
+    border-radius: 0;
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    padding: 1rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    max-width: 100%;
+    padding: 1cm;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+  pre,
+  blockquote,
+  table,
+  figure {
+    page-break-inside: avoid;
+  }
+}
+
+/* Styling for the Aha! Moment (CardWithLabel translation) */
+
+/* The main container (mimicking 'w-full max-w-7xl mx-auto p-6 border-2 border-dashed border-gray-300 rounded relative') */
+.aha-card-container {
+  /* Layout and Spacing */
+  width: 100%;
+  max-width: 1300px; /* An arbitrary large width for max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem; /* p-6 */
+  position: relative;
+
+  /* Border Styling */
+  border: 2px dashed #d1d5db; /* border-2 border-dashed border-gray-300 */
+  border-radius: 0.25rem; /* rounded */
+
+  /* Visual Enhancement */
+  background-color: #f9fafb; /* light grey/off-white background */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* The label wrapper (mimicking 'absolute -top-2 left-4 px-2 bg-white text-xs font-mono text-gray-500') */
+.aha-card-label-wrapper {
+  /* Positioning */
+  position: absolute;
+  top: -0.5rem; /* -top-2 */
+  left: 1rem; /* left-4 */
+
+  /* Spacing and Background */
+  padding-left: 0.5rem; /* px-2 */
+  padding-right: 0.5rem; /* px-2 */
+  background-color: white; /* bg-white */
+
+  /* Text Styling */
+  font-size: 0.75rem; /* text-xs */
+  font-family: monospace; /* font-mono */
+  color: #6b7280; /* text-gray-500 */
+
+  /* Ensure the label sits above the border */
+  z-index: 10;
+}
+
+/* The content area (children) */
+.aha-card-content {
+  /* Keep text legible inside the card */
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
