@@ -1,0 +1,6 @@
+Potential Gaps or Considerations:
+Section 1 (RAG): You might want to touch on retrieval strategies beyond basic similarity search—like BM25, hybrid search, or query expansion. Also, the "when it doesn't work" section is crucial; common failures (outdated context, contradictory documents, irrelevant retrieval) deserve concrete examples.
+Section 2 (Prompting): Consider adding a section on prompt injection and adversarial prompting—especially if readers will build user-facing systems. Also, it might be worth explicitly covering how to test prompts systematically (A/B testing frameworks, metrics).
+Section 3 (Evals): This section is critical but could expand on how to handle subjective quality metrics. How do you evaluate a poem or creative writing? Maybe include LLM-as-judge patterns with caveats about their limitations.
+Section 4 (Fine-tuning): The distinction between fine-tuning for capability vs. style/format could be clearer upfront. Also, practical guidance on data volume thresholds ("when do you have enough data?") would be valuable.
+Section 5 (Production): This feels like it could almost be its own mini-series. Consider whether you want to dive into specific deployment patterns (serverless, containers, batch processing) or keep it more conceptual.

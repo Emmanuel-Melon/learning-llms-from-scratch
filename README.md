@@ -1,5 +1,11 @@
 # Understanding AI, One Concept at a Time
 
+I've built simple apps with Gemini's API. But I wanted to understand
+what's actually happening. So I'm learning by building everything from
+first principles.
+
+This series documents that journey. Starting with RAG.
+
 > 🚀 **Full Guide Available Here**: Dive into the complete interactive guide at [https://inside-llms.netlify.app/overview](https://inside-llms.netlify.app/overview). This is the main entry point—start there for hands-on examples, code snippets, and in-depth explorations!
 
 This journey transforms AI from a black box into a set of understandable, composable tools. And the best part? You don't need expensive hardware or advanced degrees to start—just curiosity and a willingness to build.
@@ -13,8 +19,9 @@ When I started learning AI, I kept hitting the same roadblocks:
 - Worrying about API rate limits and costs
 - Feeling locked into specific platforms
 
-AI Tutorials: 
+AI Tutorials:
 I came across many tutorials that either:
+
 - Threw around terms like "embeddings capture semantic meaning" without explaining how
 - Skipped from "here's the concept" straight to "use this API"
 - Made everything seem like magic, not math
@@ -121,6 +128,7 @@ Each section is self-contained with its own setup instructions. Start with any t
    # or if using Yarn
    # yarn install
    ```
+
 #### Resources
 
 - [Official Documentation](https://huggingface.co/docs/transformers.js/index)
@@ -128,4 +136,3 @@ Each section is self-contained with its own setup instructions. Start with any t
 - [Hugging Face Models](https://huggingface.co/models)
 
 > ℹ️ Transformers.js offers SDKs for various languages. While Python and JavaScript are officially supported, we'll be focusing on JavaScript for its accessibility and browser compatibility.
-

@@ -9,7 +9,12 @@ Welcome to my open notebook on learning AI and machine learning!
 
 This journey transformed AI from a black box into a set of understandable, composable tools. And the best part? You don't need expensive hardware or advanced degrees to start—just curiosity and a willingness to build.
 
-{% ahamoment "An embedding is a direction in semantic space. The magic is in the angle between the vectors, not the numbers themselves." %}
+{% ahamoment "We start at <strong>Chapter 1</strong>, but if you have zero background in AI and want to get started with the basics, check out the <strong>Fundamentals chapter (Chapter 0)</strong>. While Chapter 1 covers core concepts like embeddings and RAG, the Fundamentals chapter is designed for absolute beginners with more examples and foundational content to help you build your understanding from the ground up.
+
+<ul> 
+<li> <a href='/content/ch1-rag/overview/'>RAG Chapter</a> (Chapter 1)</li>
+<li> <a href='/content/ch0-fundamentals/overview/'>AI Fundamentals</a> (Chapter 0 - for absolute beginners)</li>
+</ul>" %}
 
 **The Problem I Had**:
 
