@@ -1,6 +1,7 @@
 ---
 layout: base.njk
 title: Learning LLMs From Scratch
+permalink: /
 ---
 
 # Understanding AI, One Concept at a Time
