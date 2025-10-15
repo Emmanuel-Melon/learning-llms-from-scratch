@@ -1,29 +1,59 @@
 ---
 layout: base.njk
-title: Learning LLMs From Scratch
+title: Retrieval Augmented Generation (RAG)
+chapterNumber: 1
+tableOfContents:
+  - id: overview
+    title: Overview
+    level: h2
+  - id: what-is-rag
+    title: What is RAG?
+    level: h2
+  - id: implementation
+    title: Implementation
+    level: h2
 ---
 
 {% ahamoment "We start at Chapter 1 with RAG (Retrieval Augmented Generation), which is where most practical LLM applications begin. However, if you're completely new to AI and want to build your foundational knowledge first, we have Foundatios Chapter specifically designed for absolute beginners." %}
 
-# Understanding RAG
+# Overview
 
-> Note: “Before we build with AI, we have to understand how it remembers.”
+My journey into building AI applications began with something that changed how I thought about AI/ML. I often thought of this domain as a black box but working with Retrieval Augmented Generation (RAG) changed my perspectiv and made everything click.
 
-Retrieval-Augmented Generation (RAG) is a technique that helps large language models (LLMs) think with external memory.
+You see, traditional search (think early Google) relies on keywords. If you searched for “apple nutrition,” the system would look for records containing the word apple, even if those records were about iPhones. Search engines match words, not **meaning**.
+
+Then came large language models (LLMs), systems that can generate human-like text, but only based on what they already “know.” The problem? They don’t actually know anything. They’re just statistical pattern matchers. Ask them about your private dataset, your company’s policies, or the latest scientific paper, and they’ll **hallucinate** an answer that sounds confident but isn’t real.
+
+That’s where RAG steps in, to help LLMs make more informed responses.
+
+## What is RAG?
+
+Retrieval Augmented Generation (RAG) is a technique that helps large language models (LLMs) think with external memory.
+
+It bridges those two worlds, search and generation, letting an AI model retrieve real data from an external source (like your files, a database, or the web) and then generate a grounded, context-aware response.
+
+In this chapter, we’ll unpack how RAG works, why it matters, and how you can build your own, without cloud credits, without API keys, and without getting lost in the buzzwords.
 
 Instead of relying purely on what the model “knows” from its training data, RAG lets it retrieve relevant information from an outside source (like a database, a collection of files, or even the web) and then generate a response based on that context.
 
-This means AI models have no idea, and asking questions regarding this topic will probably result in hallucinations because AI models do not understand meaning; they simply perform statistical pattern matching.
+## RAG Architectuere
 
-{% figure "./assets/rag.png", "Alt text for the image", "This is an optional caption that will appear below the image" %}
-
-## Why It Matters
+{% figure "./assets/rag.png", "Alt text for the image", "The RAG Architecture: A three-step process where (1) a user's query is transformed into a vector representation, (2) the system retrieves the most relevant document chunks based on semantic similarity, and (3) an LLM synthesizes a response using both the original query and retrieved context to provide accurate, grounded answers." %}
 
 You can think of RAG as a technique to construct context specific to each query, instead of using the same context for all queries. This helps with managing user data, as it allows you to include data specific to a user only in queries related to this user.
 
-In order to understand RAG, we need to understand the two main components of RAG: **retrieval** and **generation**.
+> Note: “Before we build with AI, we have to understand how it works and how it remembers.”
+### How RAG Works
 
-## Retrieval
+Here’s the rhythm of it:
+
+1. The user sends a query.
+2. The retriever searches the knowledge base for the most relevant chunks.
+3. The generator uses both the query and the retrieved context to craft a coherent, informed response.
+
+That’s the loop: Query → Retrieve → Generate → Respond.
+
+### Retrieval
 
 Retrieval is the process of fetching relevant documents from a knowledge base based on the user's query.
 
@@ -48,11 +78,11 @@ Relevance is everything here. Different algorithms score relevance differently, 
   "
 %}
 
-### Knowledge Base
+#### Knowledge Base
 
 A knowledge base is a collection of documents that the AI model can retrieve from to answer questions.
 
-## Generation
+### Generation
 
 Generation is the process of creating new content based on the retrieved documents.
 Once the retriever fetches the most relevant documents, the generator (the LLM) takes over.
@@ -71,107 +101,17 @@ This partnership, retrieval + generation, forms the essence of RAG architecture.
 Now that we’ve mapped the landscape, let’s go hands-on.
 I decided to learn RAG backwards, not from architecture diagrams, not from tech stacks or fancy APIs, but from a single question and five objects in an array.
 
-No Pinecone.
-No LangChain.
-No credit card required.
+RAG seemed complex until I broke it down into steps. I built a simple version that:
 
-Just a browser, some JavaScript, and genuine curiosity.
+1. Retrieved relevant documents (like a librarian finding the right books)
+2. Added that context to my question (like giving someone background before asking for help)
+3. Generated answers using both the context and the model's knowledge
 
-## Getting Started
+Suddenly, I wasn't just using RAG, I understood why it worked and when it would fail.
 
-**No Vector Databases, No API Keys, Just Understanding**
-
-I decided to learn RAG backwards. Not from architecture diagrams, not from "here's your tech stack," but from a single question and five objects in an array.
-
-No Pinecone. No LangChain. No credit card required.
-
-Just a browser, some JavaScript, and a genuine curiosity about how this stuff actually works.
-
-### Typical Tutorial
-
-I started like most people, following a ChromaDB tutorial,
-I had to get an API key from ChromaDB and set it up in my environment variables.
-
-```bash
-CHROMA_API_KEY=YOUR_API_KEY
-CHROMA_TENANT=YOUR_TENANT   # usually a UUID
-CHROMA_DATABASE=YOUR_DATASET_NAME
-```
-
-```typescript
-import { CloudClient, Collection } from 'chromadb';
-import dotenv from 'dotenv';
-dotenv.config();
-const client = new CloudClient();
-
-
-const chromaCollectionPromise = client.getOrCreateCollection({
-  name: process.env.CHROMA_DATABASE,
-});
-
-export default chromaCollectionPromise;
-```
-
-{% ahamoment "Yayyy, it worked! I was soon able to create a collection and later on add documents." %}
-
-{% stylizedList "
-  <li>What just happened here?</li>
-  <li>What's a collection?</li>
-  <li>What's a document?</li>
-  <li>How does ChromaDB store and retrieve documents?</li>
-  <li>And what does this have to do with RAG to begin with?</li>
-  "
-%}
-
-I was also uncomfortable with the fact that I needed to setup infra, API keys, and possibly pay for services just to get started with RAG.
-
-
-## The Setup: One npm Install
-
-Most RAG tutorials start with: "Sign up for Pinecone, get your OpenAI API key, configure your vector database..."
-
-I started with:
-
-```bash
-npm install @huggingface/transformers
-```
-
-I know I said no dependencies but this will be the only dependency we'll ever need and it could run entirely on your browser. We'll eventually have to perform some ML operations and generate embeddings, but that's a topic for another day. This dependency will help us with all the ML stuff.
-
-That's it. No API keys. No credit card. No cloud services.
-
-```typescript
-import { pipeline } from "@huggingface/transformers";
-
-export const generateEmbedding = async (text: string) => {
-  const extractor = await pipeline(
-    "feature-extraction",
-    "Xenova/all-MiniLM-L6-v2",
-  );
-
-  const output = await extractor(text, {
-    pooling: "mean",
-    normalize: true,
-  });
-
-  return Array.from(output.data);
-};
-```
-
-This runs entirely in your browser. The model downloads once, then it's yours. No rate limits. No usage quotas.
-
-## The Question and the Law
+### The Question and the Laws
 
 Let's explore how RAG might work for a legal application. The government has passed a new act that is yet to be published in the gazette. This means AI models have no idea, and asking questions regarding this topic will probably result in hallucinations because AI models do not understand meaning; they simply perform **statistical pattern matching**.
-
-In order to get started with RAG, one must first have a **knowledge base**.
-
-I visited the [Uganda Legal Information Institute (ULII)](https://ulii.org/en/), which is a free legal information service provided by the Law Reporting Unit of the Uganda Judiciary and a member of the global Free Access to Law community.
-
-Through ULII, I've gathered the following key legal documents to serve as the knowledge base for my demo:
-
-- The Constitution of the Republic of Uganda (1995, as amended)
-- The Landlord and Tenant Act (2022)
 
 **The problem: find which law answers the question. That's RAG in its purest form.**
 
@@ -188,6 +128,7 @@ type Law = {
 };
 
 ```
+
 
 {% codeblock "
 export const laws = [
@@ -243,8 +184,126 @@ export const laws = [
   },
 ];", "javascript" %}
 
+### Typical Tutorial
 
-## But Wait... What Even Is an Embedding?
+I started like most people, following a ChromaDB tutorial,
+I had to get an API key from ChromaDB and set it up in my environment variables.
+
+```bash
+CHROMA_API_KEY=YOUR_API_KEY
+CHROMA_TENANT=YOUR_TENANT   # usually a UUID
+CHROMA_DATABASE=YOUR_DATASET_NAME
+```
+
+```typescript
+import { CloudClient, Collection } from 'chromadb';
+import dotenv from 'dotenv';
+dotenv.config();
+const client = new CloudClient();
+
+
+const chromaCollectionPromise = client.getOrCreateCollection({
+  name: process.env.CHROMA_DATABASE,
+});
+
+export default chromaCollectionPromise;
+```
+
+{% ahamoment "Yayyy, it worked! I was soon able to create a collection and later on add documents." %}
+
+{% stylizedList "
+  <li>What just happened here?</li>
+  <li>What's a collection?</li>
+  <li>What's a document?</li>
+  <li>How does ChromaDB store and retrieve documents?</li>
+  <li>And what does this have to do with RAG to begin with?</li>
+  "
+%}
+
+I was also uncomfortable with the fact that I needed to setup infra, API keys, and possibly pay for services just to get started with RAG.
+
+---
+
+## Getting Started
+
+**No Vector Databases, No API Keys, Just Understanding**
+
+I decided to learn RAG backwards. Not from architecture diagrams, not from "here's your tech stack," but from a single question and five objects in an array.
+
+No Pinecone. No LangChain. No credit card required.
+
+Just a browser, some JavaScript, and a genuine curiosity about how this stuff actually works.
+
+### Local AI: Machine Learning in Your Browser
+
+Modern browsers aren’t what they used to be. With technologies like WebAssembly and WebGPU, your browser can now do things that once demanded expensive GPUs or cloud infrastructure. You can literally run advanced machine learning models, right here, right now, in your browser tab.
+
+We'll only require one dependency for running ML models, it's called [Transformers.js](https://huggingface.co/docs/transformers.js/index).
+
+> Note: Transformers is available as both Node.js and Python packages. There are also a few community packages for other languages. 
+
+#### Meet Transformers.js
+
+[Transformers.js](https://huggingface.co/docs/transformers.js/index) is an open-source JavaScript library from Hugging Face that brings state-of-the-art AI directly to your browser.
+
+It lets you experiment with language models, embeddings, and RAG pipelines in real time, without relying on cloud APIs. Perfect for developers who want to learn AI by building it.
+
+
+> Note: This guide is generally language agnostic but I'll be using TypeScript/JavaScript because I run most of my examples in the browser. Feel free to install the transformers package for your language of choice.
+
+Want to learn more?
+If this sparks your curiosity, check out our [Local AI Guide](/Local-AI) for a hands-on introduction to running and experimenting with AI models right inside your browser.
+
+
+### The Setup: One npm Install
+
+I know I said no dependencies but this will be the only dependency we'll ever need and it could run entirely on your browser. We'll eventually have to perform some ML operations and generate embeddings, but that's a topic for another day. This dependency will help us with all the ML stuff.
+
+The installation process is very straightforward:
+
+```bash
+npm install @huggingface/transformers
+```
+
+That's it. No API keys. No credit card. No cloud services.
+
+```typescript
+import { pipeline } from "@huggingface/transformers";
+
+export const generateEmbedding = async (text: string) => {
+  const extractor = await pipeline(
+    "feature-extraction",
+    "Xenova/all-MiniLM-L6-v2",
+  );
+
+  const output = await extractor(text, {
+    pooling: "mean",
+    normalize: true,
+  });
+
+  return Array.from(output.data);
+};
+```
+
+This runs entirely in your browser. The model downloads once, then it's yours. No rate limits. No usage quotas.
+
+---
+
+# The Building Blocks
+
+## The Knowledge Base
+
+In order to get started with RAG, one must first have a **knowledge base**.
+
+I visited the [Uganda Legal Information Institute (ULII)](https://ulii.org/en/), which is a free legal information service provided by the Law Reporting Unit of the Uganda Judiciary and a member of the global Free Access to Law community.
+
+Through ULII, I've gathered the following key legal documents to serve as the knowledge base for my demo:
+
+- The Constitution of the Republic of Uganda (1995, as amended)
+- The Landlord and Tenant Act (2022)
+
+
+## Vector Databases
 
 Before I ran this code, I needed to understand: what am I actually creating?
 
@@ -254,7 +313,7 @@ That's it. When you turn "What is the legal drinking age in Uganda?" into an emb
 
 The magic isn't in the numbers themselves. It's in how those directions relate to each other.
 
-## How Does the Model Turn Text into an Embedding?
+### How Does the Model Turn Text into an Embedding?
 
 Before we dive into similarity, I needed to understand: what's actually happening inside `generateEmbedding()`?
 
@@ -277,7 +336,7 @@ Here's what happens when you generate an embedding:
 
 Let's break this down, because each step reveals something important.
 
-### Step 1: Tokenization - Breaking Text into Pieces
+#### Step 1: Tokenization - Breaking Text into Pieces
 
 ```typescript
 // Input text
@@ -298,7 +357,7 @@ Let's break this down, because each step reveals something important.
 
 The model doesn't work with raw text - it works with tokens. These might be whole words, or sub-word pieces for rare/complex words.
 
-### Step 2: From Words to Initial Vectors
+#### Step 2: From Words to Initial Vectors
 
 Each token gets mapped to a pre-learned vector:
 
@@ -315,7 +374,7 @@ The model was pre-trained on billions of words. It learned that words appearing 
 
 Words that appear near each other in sentences ("drinking" and "alcohol", "legal" and "law") end up with similar vectors.
 
-### Step 3: Contextualization Through Transformer Layers
+#### Step 3: Contextualization Through Transformer Layers
 
 Here's where it gets interesting. The model doesn't just look at words in isolation:
 
@@ -337,7 +396,7 @@ The transformer processes the entire sentence at once. Through **self-attention*
 
 The word vectors get updated based on their surrounding context. This is why embeddings capture meaning, not just vocabulary.
 
-### Step 4: Pooling - From Word Vectors to Sentence Vector
+#### Step 4: Pooling - From Word Vectors to Sentence Vector
 
 After contextualization, we have 10 word vectors (one per token). But we need ONE vector for the whole sentence:
 
@@ -362,7 +421,7 @@ const sentenceVector = [
 **Mean pooling** averages all the word vectors. It captures the "overall meaning" of the sentence by combining the contextualized meaning of each word.
 
 
-### Step 5: Normalization
+#### Step 5: Normalization
 
 Finally, the vector gets scaled to unit length:
 
@@ -376,7 +435,7 @@ Finally, the vector gets scaled to unit length:
 
 This ensures we're comparing **direction** only, not magnitude. Two sentences can have the same semantic direction regardless of how many words they contain.
 
-### Connecting Back to Our Code
+#### Connecting Back to Our Code
 
 Now when we see this:
 
@@ -398,7 +457,7 @@ We understand exactly what's happening:
 
 The output is a single 384-dimensional vector that encodes the semantic meaning of the entire sentence.
 
-### The Beautiful Insight
+#### The Beautiful Insight
 
 {% ahamoment "RAG isn't some AI magic, it's just an architectural pattern for building AI applications and services; RAG allows us to **retrieve** and **generate** content." %}
 
@@ -412,7 +471,7 @@ It learned that:
 
 This is why the same word in different contexts gets different embeddings, and why the model understands nuanced meaning.
 
-### Why This Matters
+#### Why This Matters
 
 Instead of thinking:
 
@@ -424,22 +483,9 @@ We now understand:
 
 No magic. Just math and learned patterns.
 
-## Understanding Similarity Through Geometry
+---
 
-Now that we know how embeddings are created, let's talk about how we compare them:
-
-When two embeddings point in similar directions (small angle), the texts are semantically similar. When they're perpendicular (90°), they're unrelated. When they point opposite directions, they're... opposite in meaning.
-
-**Cosine similarity measures the angle between vectors.**
-
-- Cosine similarity = 1: vectors point exactly the same direction (identical meaning)
-- Cosine similarity ≈ 0.8: vectors point nearly the same direction (very similar)
-- Cosine similarity ≈ 0: vectors are perpendicular (unrelated topics)
-- Cosine similarity = -1: vectors point opposite directions
-
-This is what "semantic search" means. You're literally finding which documents point in the same direction as your query.
-
-## What Does "Meaning" Even Mean Here?
+# Meaning and Similarity
 
 When I generate an embedding for "drinking age," the model isn't philosophically understanding what "drinking" means. It learned from millions of texts that:
 
@@ -453,7 +499,25 @@ When we say two texts are "semantically similar," we're saying: based on how lan
 
 It's pattern recognition at massive scale, not philosophical understanding. But it works.
 
-## Running the Code
+### Understanding Similarity Through Geometry
+
+Now that we know how embeddings are created, let's talk about how we compare them:
+
+When two embeddings point in similar directions (small angle), the texts are semantically similar. When they're perpendicular (90°), they're unrelated. When they point opposite directions, they're... opposite in meaning.
+
+**Cosine similarity measures the angle between vectors.**
+
+{% stylizedList "
+  <li>Cosine similarity = 1: vectors point exactly the same direction (identical meaning)</li>
+  <li>Cosine similarity ≈ 0.8: vectors point nearly the same direction (very similar)</li>
+  <li>Cosine similarity ≈ 0: vectors are perpendicular (unrelated topics)</li>
+  <li>Cosine similarity = -1: vectors point opposite directions</li>
+  "
+%}
+
+{% ahamoment "This is what 'semantic search' means. You're literally finding which documents point in the same direction as your query." %}
+
+### Running the Code
 
 I generated embeddings for my question and all five laws:
 
@@ -475,7 +539,7 @@ const lawEmbeddings = await Promise.all(
 
 Each embedding is 384 numbers. Each number is a coordinate in semantic space. Together, they form a direction.
 
-## The One-Line Secret
+### The One-Line Secret
 
 Here's the actual similarity calculation:
 
@@ -492,7 +556,7 @@ Because our vectors are normalized (`normalize: true`), the dot product **IS** t
 
 We're just multiplying corresponding numbers and adding them up. The result tells us how aligned the directions are.
 
-## The Results
+### The Results
 
 ```
 Similar laws: [
@@ -916,6 +980,8 @@ But the core concept? Still just "store normalized vectors, compare with cosine 
 
 I could build demo products with JSON files and in-memory arrays. When I needed scale, I'd know exactly what problem I was solving by adding a vector database.
 
+---
+
 ## The Complete Picture
 
 Here's my entire RAG implementation. No vector database. No API keys. Everything in memory:
@@ -1088,7 +1154,11 @@ For my 5 laws, **0.5 worked well**. But this depends on your domain, embedding m
 
 This is a crucial step that many tutorials skip. Without filtering, you'll retrieve irrelevant content and your LLM will try to answer based on garbage context.
 
-## Completing the RAG Pipeline: Adding Generation
+
+---
+
+
+# The G in RAG: Generation
 
 Now for the moment we've been building toward - connecting retrieval to an actual LLM.
 

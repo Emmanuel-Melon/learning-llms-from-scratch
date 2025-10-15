@@ -1,26 +1,392 @@
 /* Layout CSS - Navbar and Footer with Sketchy Styling */
 
+/* Page Layout Container */
+.page-layout {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 70px); /* Full height minus navbar */
+  position: relative;
+  overflow: hidden; /* Prevent main from scrolling */
+  gap: 1rem; /* Remove gap between elements */
+}
+
+/* Sidebar Styles */
+.sidebar {
+  flex-shrink: 0;
+  height: 100%;
+  overflow-y: auto;
+  
+}
+
+.sidebar-left {
+  width: var(--sidebar-width);
+}
+
+.sidebar-right {
+  width: var(--toc-width);
+}
+
+.sidebar-content {
+  background-color: #f9fafb;
+  border-radius: 0.25rem;
+  padding: 1.5rem;
+  position: relative;
+  height: 100%;
+}
+
+.sidebar-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0;
+  border-bottom: none;
+  font-family: var(--font-heading);
+}
+
+.sidebar-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke-width: 2;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  padding-left: 3rem;
+  text-decoration: none;
+  color: #1e293b;
+  transition: all 0.2s ease;
+  position: relative;
+  line-height: 1.7;
+  border-radius: 0.25rem;
+}
+
+/* Hand-drawn numbered circles for chapters */
+.sidebar-link::before {
+  content: attr(data-chapter);
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(-5deg);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
+  border: 2px solid #1e3a8a;
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #1e3a8a;
+  font-family: var(--font-heading);
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+/* Hand-drawn background for sidebar links (like navbar) */
+.sidebar-link::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border: 1px solid #3b82f6;
+  border-radius: 0.25rem;
+  transform: translate(-50%, -50%) rotate(-2deg);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-link:hover::before {
+  transform: translateY(-50%) scale(1.1) rotate(0deg);
+  background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
+}
+
+.sidebar-link:hover::after {
+  opacity: 1;
+}
+
+.sidebar-link:hover {
+  color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.chapter-number {
+  display: none;
+}
+
+.chapter-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+}
+
+/* Table of Contents Navigation */
+.toc-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toc-link {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  padding-left: 1rem;
+  color: #1e293b;
+  text-decoration: none;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  transition: all 0.2s ease;
+  position: relative;
+  border-radius: 0.25rem;
+}
+
+/* Hand-drawn background for TOC links (like sidebar) */
+.toc-link::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border: 1px solid #3b82f6;
+  border-radius: 0.25rem;
+  transform: translate(-50%, -50%) rotate(-1deg);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.toc-link:hover {
+  color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.toc-link:hover::after {
+  opacity: 1;
+}
+
+.toc-link.active {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.toc-link.active::after {
+  opacity: 1;
+}
+
+/* Indent h3 links */
+.toc-link.toc-h3 {
+  padding-left: 2rem;
+  font-size: 0.8125rem;
+  color: #94a3b8;
+}
+
+.toc-link.toc-h3:hover {
+  color: #3b82f6;
+}
+
+.toc-link.toc-h3.active {
+  color: #3b82f6;
+}
+
+/* Support for level-based classes (h2, h3, etc.) */
+.toc-link.toc-h2 {
+  padding-left: 1rem;
+}
+
+/* Content Area - Reading Area */
+.content {
+  flex: 1;
+  max-width: var(--content-max-width);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border-left: 2px dashed #d1d5db;
+  border-right: 2px dashed #d1d5db;
+  overflow: hidden;
+}
+
+/* Content Header - Fixed */
+.content-header {
+  flex-shrink: 0;
+  padding: 1.5rem 1.5rem 1rem;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Hand-drawn background for content header (always visible) */
+.content-header::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% - 2rem);
+  height: calc(100% - 1rem);
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border: 1px solid #3b82f6;
+  border-radius: 0.25rem;
+  transform: translate(-50%, -50%) rotate(-1deg);
+  z-index: 0;
+  opacity: 1;
+}
+
+.content-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Sketched Chapter Badge */
+.content-chapter-badge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
+  border: 3px solid #1c1917;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.15);
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #1c1917;
+  font-family: var(--font-heading);
+  transform: rotate(-5deg);
+  z-index: 2;
+}
+
+.content-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  font-family: var(--font-heading);
+}
+
+.content-navigation {
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Content Body - Scrollable */
+.content-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+/* Custom Scrollbar Styling */
+.content-body::-webkit-scrollbar, .sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content-body::-webkit-scrollbar-track, .sidebar::-webkit-scrollbar-track {
+  background: #f9fafb;
+}
+
+.content-body::-webkit-scrollbar-thumb, .sidebar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.content-body::-webkit-scrollbar-thumb:hover, .sidebar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Firefox Scrollbar */
+.content-body, .sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db #f9fafb;
+}
+
+/* Hide sidebars on mobile and tablet */
+@media (max-width: 1280px) {
+  .sidebar-right {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .page-layout {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+  
+  .sidebar-left,
+  .sidebar-right {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 1rem 0;
+  }
+  
+  .sidebar-right {
+    display: none;
+  }
+  
+  .content {
+    max-width: 100%;
+    padding: 1rem 0;
+  }
+}
+
 /* Sketchy Navbar Styling */
 .navbar-container {
-  /* Layout and Spacing */
   width: 100%;
-  margin: 0 auto 2rem auto;
-  position: relative;
-
-  /* Border Styling - matching aha moment aesthetic */
-  border: 2px dashed #d1d5db;
-  border-radius: 0.25rem;
+  position: sticky;
+  top: 0;
   background-color: #f9fafb;
-  padding: 1rem 1.5rem;
-  box-sizing: border-box;
+  border-bottom: 2px dashed #d1d5db;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .navbar-content {
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
+  box-sizing: border-box;
 }
 
 .navbar-brand {
@@ -88,6 +454,7 @@
   border-radius: 0.25rem;
   transition: all 0.2s ease;
   position: relative;
+  border-bottom: none !important;
 }
 
 .navbar-links a::before {
@@ -139,25 +506,20 @@
 
 /* Sketchy Footer Styling */
 .footer-container {
-  /* Layout and Spacing */
-  width: 100%;
-  margin: 3rem auto 1rem auto;
-  position: relative;
-
-  /* Border Styling - matching aha moment aesthetic */
-  border: 2px dashed #d1d5db;
-  border-radius: 0.25rem;
-  background-color: #f9fafb;
-  padding: 1.5rem;
-  box-sizing: border-box;
+  display: none; /* Hide footer in fixed layout */
 }
 
 .footer-content {
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 2rem;
+  box-sizing: border-box;
 }
 
 .footer-section {

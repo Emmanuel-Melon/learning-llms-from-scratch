@@ -77,9 +77,87 @@
                 lucide.createIcons();
             });
         </script>
-        <main class="border border-gray-200 bg-rred-500">
-            {{ content | safe }}
+        <main class="page-layout">
+            <aside class="sidebar sidebar-left">
+                <div class="sidebar-content">
+                    <h2 class="sidebar-title">
+                        <i data-lucide="book-open" class="sidebar-icon"></i>
+                        Chapters
+                    </h2>
+                    <nav class="sidebar-nav">
+                        {% for chapter in chapters %}
+                        <a href="{{ chapter.url }}" class="sidebar-link" data-chapter="{{ chapter.number }}">
+                            <span class="chapter-title">{{ chapter.title }}</span>
+                        </a>
+                        {% endfor %}
+                    </nav>
+                </div>
+            </aside>
+            <div class="content">
+                <div class="content-header">
+                    <div class="content-title-wrapper">
+                        {% if chapterNumber %}
+                        <span class="content-chapter-badge" data-number="{{ chapterNumber }}">{{ chapterNumber }}</span>
+                        {% endif %}
+                        <h1 class="content-title">{{ title }}</h1>
+                  
+                    </div>
+              
+                    <div class="content-navigation">
+                        <!-- Navigation arrows will go here -->
+                    </div>
+                    
+                </div>
+                
+                <div class="content-body">
+                    {{ content | safe }}
+                </div>
+            </div>
+            {% if tableOfContents %}
+            <aside class="sidebar sidebar-right">
+                <div class="sidebar-content">
+                    <h2 class="sidebar-title">
+                        <i data-lucide="list" class="sidebar-icon"></i>
+                        On This Page
+                    </h2>
+                    <nav class="toc-nav" id="toc-nav">
+                        {% for item in tableOfContents %}
+                        <a href="#{{ item.id }}" class="toc-link toc-{{ item.level }}">{{ item.title }}</a>
+                        {% endfor %}
+                    </nav>
+                </div>
+            </aside>
+            {% endif %}
         </main>
+        {% if tableOfContents %}
+        <script>
+            // Highlight active section in TOC
+            document.addEventListener('DOMContentLoaded', function() {
+                const contentBody = document.querySelector('.content-body');
+                if (contentBody) {
+                    contentBody.addEventListener('scroll', function() {
+                        const tocLinks = document.querySelectorAll('.toc-link');
+                        const headings = document.querySelectorAll('.content-body [id]');
+                        
+                        let current = '';
+                        headings.forEach(heading => {
+                            const rect = heading.getBoundingClientRect();
+                            if (rect.top <= 200) {
+                                current = heading.id;
+                            }
+                        });
+                        
+                        tocLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + current) {
+                                link.classList.add('active');
+                            }
+                        });
+                    });
+                }
+            });
+        </script>
+        {% endif %}
         <footer class="footer-container">
             <div>
                 <p>&copy; 2025 Learning LLMs from Scratch</p>
