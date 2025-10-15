@@ -383,31 +383,6 @@ When two embeddings point in similar directions (small angle), the texts are sem
 
 This is what "semantic search" means. You're literally finding which documents point in the same direction as your query.
 
----
-layout: base.njk
-title: Learning LLMs From Scratch
----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## What Does "Meaning" Even Mean Here?
 
 When I generate an embedding for "drinking age," the model isn't philosophically understanding what "drinking" means. It learned from millions of texts that:
