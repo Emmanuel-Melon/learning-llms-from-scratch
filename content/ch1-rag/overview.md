@@ -32,15 +32,21 @@ A retriever has two main functions: **indexing** and **querying**. Indexing invo
 
 **A retriever does two things:**
 
-- Indexing: preparing and storing documents for fast search.
-- Querying: fetching the most relevant documents for a user’s input.
+{% stylizedList "
+  <li>Indexing: preparing and storing documents for fast search.</li>
+  <li>Querying: fetching the most relevant documents for a user’s input.</li>
+  "
+%}
 
 At its core, retrieval works by ranking documents based on their relevance to a given query. Retrieval algorithms differ based on how relevance scores are computed. I’ll start with two common retrieval mechanisms: term-based retrieval and embedding-based retrieval.
 
 Relevance is everything here. Different algorithms score relevance differently, the two most common being:
 
-- Term-based retrieval (exact word matching)
-- Embedding-based retrieval (semantic similarity)
+{% stylizedList "
+  <li>Term-based retrieval (exact word matching)</li>
+  <li>Embedding-based retrieval (semantic similarity)</li>
+  "
+%}
 
 ### Knowledge Base
 
@@ -106,16 +112,16 @@ const chromaCollectionPromise = client.getOrCreateCollection({
 export default chromaCollectionPromise;
 ```
 
-## We're good, my guy
+{% ahamoment "Yayyy, it worked! I was soon able to create a collection and later on add documents." %}
 
-{% ahamoment "Yayyy, it worked! I was soon able to create a collection and later on add documents."%}
-
-A few questions lingered in mind, though:
-- What just happened here?
-- What's a collection?
-- What's a document?
-- How does ChromaDB store and retrieve documents?
-- And what does this have to do with RAG to begin with?
+{% stylizedList "
+  <li>What just happened here?</li>
+  <li>What's a collection?</li>
+  <li>What's a document?</li>
+  <li>How does ChromaDB store and retrieve documents?</li>
+  <li>And what does this have to do with RAG to begin with?</li>
+  "
+%}
 
 I was also uncomfortable with the fact that I needed to setup infra, API keys, and possibly pay for services just to get started with RAG.
 
