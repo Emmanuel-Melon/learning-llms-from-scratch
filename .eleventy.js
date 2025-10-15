@@ -1,4 +1,5 @@
 const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
+require('dotenv').config();
 
 module.exports = function (eleventyConfig) {
   // Copy CSS to the output directory
@@ -98,6 +99,14 @@ module.exports = function (eleventyConfig) {
     sizes: ["100%"],
   });
 
+
+
+
+  // Inside module.exports:
+  eleventyConfig.addGlobalData('env', {
+    POSTHOG_API_KEY: process.env.POSTHOG_API_KEY || '',
+    NODE_ENV: process.env.NODE_ENV || 'development'
+  });
   return {
     dir: {
       input: ".",

@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2",
+    "dotenv": "^17.2.3",
     "prettier": "^3.6.2"
   },
   "dependencies": {
