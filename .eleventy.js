@@ -1,4 +1,5 @@
 const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
+const socialImages = require("@11tyrocks/eleventy-plugin-social-images");
 require('dotenv').config();
 
 module.exports = function (eleventyConfig) {
@@ -92,15 +93,59 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     // Options for image processing
-    widths: [300, 600, null], // Output widths, 'null' for original width
-    formats: ["webp", "jpeg", "png"], // Output formats
+    widths: [300, 600, 800, null], // Explicit widths, no null
+    formats: ["webp", "jpeg"], // Output formats
     outputDir: "./_site/img/", // Where processed images are saved
     urlPath: "/img/", // URL path for generated images
-    sizes: ["100%"],
+    defaultAttributes: {
+      loading: "lazy",
+      decoding: "async"
+    }
   });
 
+  // Image with caption shortcode
+  eleventyConfig.addNunjucksShortcode("figure", function (src, alt = "", caption = "") {
+    // Generate a unique ID for the figure
+    const figureId = `figure-${Math.random().toString(36).substr(2, 9)}`;
 
+    return `
+<figure id="${figureId}" class="figure">
+  <img 
+    src="${src}" 
+    alt="${alt}" 
+    loading="lazy" 
+    decoding="async"
+    class="figure-image"
+  >
+  ${caption ? `<figcaption class="figure-caption">${caption}</figcaption>` : ''}
+</figure>
 
+<style>
+  .figure {
+    margin: 2rem auto;
+    max-width: 100%;
+    text-align: center;
+    border: 2px dashed #d1d5db;
+  }
+  .figure-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  .figure-caption {
+    margin-top: 0.5rem;
+    border-top: 2px dashed #d1d5db;
+    font-size: 0.9em;
+    color: #666;
+    font-style: italic;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+</style>
+    `;
+  });
+
+  eleventyConfig.addPlugin(socialImages);
 
   // Inside module.exports:
   eleventyConfig.addGlobalData('env', {

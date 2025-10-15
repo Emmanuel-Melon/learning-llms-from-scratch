@@ -8,6 +8,11 @@
   --max-width: 800px;
 }
 
+main {
+  border: 2px dashed #d1d5db;
+  padding: 1rem;
+}
+
 /* Base styles */
 body {
   font-family:
@@ -286,100 +291,6 @@ a:hover {
   text-decoration: none;
 }
 
-/* Lists */
-ul,
-ol {
-  padding-left: 2.5rem;
-  margin: 2rem 0;
-  position: relative;
-  list-style: none;
-}
-
-/* Hand-drawn list items */
-ul > li,
-ol > li {
-  position: relative;
-  margin-bottom: 1.25rem;
-  line-height: 1.7;
-  padding-left: 1.5rem;
-}
-
-/* Hand-drawn bullet points */
-ul > li::before {
-  content: "";
-  position: absolute;
-  left: -1.5rem;
-  top: 0.5rem;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
-  border: 2px solid #1c1917;
-  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 1);
-  transform: rotate(15deg);
-}
-
-/* Hand-drawn numbers for ordered lists */
-ol {
-  counter-reset: item;
-}
-
-ol > li::before {
-  counter-increment: item;
-  content: counter(item);
-  position: absolute;
-  left: -2rem;
-  top: 0;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
-  border: 2px solid #1e3a8a;
-  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 0.8em;
-  color: #1e3a8a;
-  transform: rotate(-5deg);
-}
-
-/* Nested lists */
-ul ul,
-ol ul,
-ul ol,
-ol ol {
-  margin: 0.75rem 0 0.75rem 1.5rem;
-}
-
-/* Different colors for nested list items */
-ul > li > ul > li::before {
-  background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 100%);
-  border-color: #3730a3;
-}
-
-ol > li > ol > li::before {
-  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-  border-color: #065f46;
-  color: #065f46;
-}
-
-/* Hand-drawn style for the last level of nesting */
-ul > li > ul > li > ul > li::before,
-ol > li > ol > li > ol > li::before {
-  background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
-  border-color: #991b1b;
-  transform: rotate(-15deg);
-}
-
-/* Hover effects */
-ul > li:hover::before,
-ol > li:hover::before {
-  transform: scale(1.1) rotate(0deg);
-  transition: transform 0.2s ease;
-}
-
 /* Blockquotes */
 blockquote {
   margin: 1.5rem 0;
@@ -440,16 +351,18 @@ blockquote {
 /* The main container (mimicking 'w-full max-w-7xl mx-auto p-6 border-2 border-dashed border-gray-300 rounded relative') */
 .aha-card-container {
   /* Layout and Spacing */
+  position: relative;
   width: 100%;
-  max-width: 1300px; /* An arbitrary large width for max-w-7xl */
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding: 1.5rem; /* p-6 */
-  position: relative;
+  margin: 2rem 0;
+  padding: 1rem;
+  box-sizing: border-box;
 
   /* Border Styling */
-  border: 2px dashed #d1d5db; /* border-2 border-dashed border-gray-300 */
-  border-radius: 0.25rem; /* rounded */
+  border: 2px dashed #d1d5db;
+  border-radius: 0.25rem;
 
   /* Visual Enhancement */
   background-color: #f9fafb; /* light grey/off-white background */

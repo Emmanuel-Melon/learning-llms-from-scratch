@@ -3,34 +3,85 @@ layout: base.njk
 title: Learning LLMs From Scratch
 ---
 
-{% ahamoment "We start at <strong>Chapter 1</strong> with RAG (Retrieval Augmented Generation), which is where most practical LLM applications begin. However, if you're completely new to AI and want to build your foundational knowledge first, we have a Fundamentals chapterspecifically designed for absolute beginners." %}
+{% ahamoment "We start at Chapter 1 with RAG (Retrieval Augmented Generation), which is where most practical LLM applications begin. However, if you're completely new to AI and want to build your foundational knowledge first, we have Foundatios Chapter specifically designed for absolute beginners." %}
 
-# Inside RAG
+# Understanding RAG
 
-RAG is a technique that enhances a model’s generation by retrieving the relevant information from external memory sources. An external memory source can be an internal database, a user’s previous chat sessions, or the internet.
+> Note: “Before we build with AI, we have to understand how it remembers.”
+
+Retrieval-Augmented Generation (RAG) is a technique that helps large language models (LLMs) think with external memory.
+
+Instead of relying purely on what the model “knows” from its training data, RAG lets it retrieve relevant information from an outside source (like a database, a collection of files, or even the web) and then generate a response based on that context.
+
+This means AI models have no idea, and asking questions regarding this topic will probably result in hallucinations because AI models do not understand meaning; they simply perform statistical pattern matching.
+
+{% figure "./assets/rag.png", "Alt text for the image", "This is an optional caption that will appear below the image" %}
+
+## Why It Matters
 
 You can think of RAG as a technique to construct context specific to each query, instead of using the same context for all queries. This helps with managing user data, as it allows you to include data specific to a user only in queries related to this user.
 
-RAG isn't some AI magic, it's just an architectural pattern for building AI applications and services; RAG allows us to **retrieve** and **generate** content.
+In order to understand RAG, we need to understand the two main components of RAG: **retrieval** and **generation**.
 
 ## Retrieval
 
-A knowledge base is a collection of documents that the AI model can retrieve from to answer questions.
-
 Retrieval is the process of fetching relevant documents from a knowledge base based on the user's query.
 
-A retriever has two main functions: indexing and querying. Indexing involves processing data so that it can be quickly retrieved later. Sending a query to retrieve data relevant to it is called querying. How to index data depends on how you want to retrieve it later on.
+
+A retriever has two main functions: **indexing** and **querying**. Indexing involves processing data so that it can be quickly retrieved later. Sending a query to retrieve data relevant to it is called querying. How to index data depends on how you want to retrieve it later on.
+
+**A retriever does two things:**
+
+- Indexing: preparing and storing documents for fast search.
+- Querying: fetching the most relevant documents for a user’s input.
 
 At its core, retrieval works by ranking documents based on their relevance to a given query. Retrieval algorithms differ based on how relevance scores are computed. I’ll start with two common retrieval mechanisms: term-based retrieval and embedding-based retrieval.
+
+Relevance is everything here. Different algorithms score relevance differently, the two most common being:
+
+- Term-based retrieval (exact word matching)
+- Embedding-based retrieval (semantic similarity)
+
+### Knowledge Base
+
+A knowledge base is a collection of documents that the AI model can retrieve from to answer questions.
 
 ## Generation
 
 Generation is the process of creating new content based on the retrieved documents.
+Once the retriever fetches the most relevant documents, the generator (the LLM) takes over.
 
-RAG Architecture
-A RAG system has two components: a retriever that retrieves information from external memory sources and a generator that generates a response based on the retrieved information. 
+It weaves a response that blends:
+
+- The retrieved information
+- The model’s own learned reasoning patterns.
+
+This partnership, retrieval + generation, forms the essence of RAG architecture.
+
+**The retriever brings knowledge, and the generator brings language.**
+
+## RAG from Scratch:
+
+Now that we’ve mapped the landscape, let’s go hands-on.
+I decided to learn RAG backwards, not from architecture diagrams, not from tech stacks or fancy APIs, but from a single question and five objects in an array.
+
+No Pinecone.
+No LangChain.
+No credit card required.
+
+Just a browser, some JavaScript, and genuine curiosity.
 
 ## Getting Started
+
+**No Vector Databases, No API Keys, Just Understanding**
+
+I decided to learn RAG backwards. Not from architecture diagrams, not from "here's your tech stack," but from a single question and five objects in an array.
+
+No Pinecone. No LangChain. No credit card required.
+
+Just a browser, some JavaScript, and a genuine curiosity about how this stuff actually works.
+
+### Typical Tutorial
 
 I started like most people, following a ChromaDB tutorial,
 I had to get an API key from ChromaDB and set it up in my environment variables.
@@ -42,12 +93,11 @@ CHROMA_DATABASE=YOUR_DATASET_NAME
 ```
 
 ```typescript
-import { CloudClient, Collection } from "chromadb";
-import dotenv from "dotenv";
-
+import { CloudClient, Collection } from 'chromadb';
+import dotenv from 'dotenv';
 dotenv.config();
-
 const client = new CloudClient();
+
 
 const chromaCollectionPromise = client.getOrCreateCollection({
   name: process.env.CHROMA_DATABASE,
@@ -56,21 +106,19 @@ const chromaCollectionPromise = client.getOrCreateCollection({
 export default chromaCollectionPromise;
 ```
 
-Yayyy, it worked! I was soon able to create a collection and later on add documents.
+## We're good, my guy
 
-A few questions lingered in mind, though. What just happened here? What's a collection? What's a document? How does ChromaDB store and retrieve documents? And what does this have to do with RAG to begin with?
+{% ahamoment "Yayyy, it worked! I was soon able to create a collection and later on add documents."%}
+
+A few questions lingered in mind, though:
+- What just happened here?
+- What's a collection?
+- What's a document?
+- How does ChromaDB store and retrieve documents?
+- And what does this have to do with RAG to begin with?
 
 I was also uncomfortable with the fact that I needed to setup infra, API keys, and possibly pay for services just to get started with RAG.
 
-### RAG from Scratch:
-
-**No Vector Databases, No API Keys, Just Understanding**
-
-I decided to learn RAG backwards. Not from architecture diagrams, not from "here's your tech stack," but from a single question and five objects in an array.
-
-No Pinecone. No LangChain. No credit card required.
-
-Just a browser, some JavaScript, and a genuine curiosity about how this stuff actually works.
 
 ## The Setup: One npm Install
 
@@ -345,6 +393,8 @@ We understand exactly what's happening:
 The output is a single 384-dimensional vector that encodes the semantic meaning of the entire sentence.
 
 ### The Beautiful Insight
+
+{% ahamoment "RAG isn't some AI magic, it's just an architectural pattern for building AI applications and services; RAG allows us to **retrieve** and **generate** content." %}
 
 **The model isn't magic** - it's a sophisticated pattern matcher that learned linguistic structure from billions of examples.
 

@@ -3,26 +3,80 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="{{ title or meta.title }}"/>
+        <meta property="og:description" content="{{ description or excerpt or meta.description }}"/>
+        <meta property="og:url" content="{{ site.url }}{{ page.url }}"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:image" content="{{ social_image_url }}"/>
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:site" content="@YourTwitterHandle"/>
+        <meta name="twitter:creator" content="@YourTwitterHandle"/>
+        <meta name="twitter:image" content="{{ social_image_url }}"/>
         <title>{{ title or metadata.title }}</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/layout.css">
         <link rel="stylesheet" href="https://unpkg.com/lucide-static@latest/font/lucide.css"/>
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <style>
+            :root {
+                --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            }
+            
+            body {
+                font-family: var(--font-body);
+                line-height: 1.6;
+                color: #1a1a1a;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                font-family: var(--font-heading);
+                font-weight: 600;
+                line-height: 1.2;
+                letter-spacing: -0.02em;
+                margin: 1.5em 0 0.75em;
+            }
+            
+            .navbar-brand {
+                font-family: var(--font-heading);
+                font-weight: 700;
+                letter-spacing: -0.01em;
+            }
+        </style>
     </head>
     <body>
         <nav class="navbar-container">
             <div class="navbar-content">
-                <a href="/overview" class="navbar-brand">Understanding AI</a>
+                <a href="/" class="navbar-brand">
+                    <i data-lucide="brain" class="icon"></i>
+                    <span>Understanding AI</span>
+                </a>
                 <ul class="navbar-links">
                     <li>
-                        <a href="/about">About</a>
+                        <a href="/about">
+                            <i data-lucide="info" class="icon"></i>
+                            <span>About</span>
+                        </a>
                     </li>
                     <li>
-                        <a href="/outline">Chapters</a>
+                        <a href="/outline">
+                            <i data-lucide="book-open" class="icon"></i>
+                            <span>Chapters</span>
+                        </a>
                     </li>
                 </ul>
             </div>
         </nav>
-        <main>
+        <script>
+            // Initialize Lucide icons after the DOM is fully loaded
+            document.addEventListener('DOMContentLoaded', function() {
+                lucide.createIcons();
+            });
+        </script>
+        <main class="border border-gray-200 bg-rred-500">
             {{ content | safe }}
         </main>
         <footer class="footer-container">
@@ -30,22 +84,69 @@
                 <p>&copy; 2025 Learning LLMs from Scratch</p>
             </div>
         </footer>
-          <script>
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init hi $r kr ui wr Er capture Ri calculateEventProperties Ir register register_once register_for_session unregister unregister_for_session Fr getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Cr Tr createPersonProfile Or yr Mr opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Pr debug L Rr getPageViewId captureTraceFeedback captureTraceMetric gr".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    posthog.init('{{ env.POSTHOG_API_KEY }}', {
-        api_host: 'https://us.i.posthog.com',
-        defaults: '2025-05-24',
-        person_profiles: 'identified_only',
-    })
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('PostHog debug - API Key:', '{{ env.POSTHOG_API_KEY }}');
-  console.log('PostHog debug - window.posthog:', window.posthog);
-});
-</script>
+        <script>
+            !function (t, e) {
+                var o,
+                    n,
+                    p,
+                    r;
+                e.__SV || (window.posthog && window.posthog.__loaded) || (window.posthog = e, e._i =[], e.init = function (i, s, a) {
+                    function g(t, e) {
+                        var o = e.split(".");
+                        2 == o.length && (t = t[o[0]], e = o[1]),
+                        t[e] = function () {
+                            t.push([e].concat(Array
+                                .prototype
+                                .slice
+                                .call(arguments, 0)))
+                        }
+                    }(p = t.createElement("script")).type = "text/javascript",
+                    p.crossOrigin = "anonymous",
+                    p.async = !0,
+                    p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js",
+                    (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r);
+                    var u = e;
+                    for (
+                        void 0 !== a
+                            ? u = e[a] =[]
+                            : a = "posthog",
+                        u.people = u.people || [],
+                        u.toString = function (t) {
+                        var e = "posthog";
+                            return "posthog" !== a && (e += "." + a),
+                            t || (e += " (stub)"),
+                            e
+                        },
+                        u.people.toString = function () {
+                        return u.toString(1) + ".people (stub)"
+                        },
+                        o = "init hi $r kr ui wr Er capture Ri calculateEventProperties Ir register register_once register_for_session unregister unr" +
+                            "egister_for_session Fr getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeature" +
+                            "Enrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys rend" +
+                            "erSurvey displaySurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonProp" +
+                            "ertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_" +
+                            "id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRe" +
+                            "cordingStarted captureException loadToolbar get_property getSessionProperty Cr Tr createPersonProfile Or yr Mr opt_in_ca" +
+                            "pturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_" +
+                            "opt_in_out_capturing Pr debug L Rr getPageViewId captureTraceFeedback captureTraceMetric gr".split(" "),
+                        n = 0; n < o.length; n++
+                    ) 
+                        g(u, o[n]);
+                    
+                    e._i.push([i, s, a])
+                }, e.__SV = 1)
+            }(document, window.posthog || []);
+            posthog.init('{{ env.POSTHOG_API_KEY }}', {
+                api_host: 'https://us.i.posthog.com',
+                defaults: '2025-05-24',
+                person_profiles: 'identified_only'
+            })
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log('PostHog debug - API Key:', '{{ env.POSTHOG_API_KEY }}');
+                console.log('PostHog debug - window.posthog:', window.posthog);
+            });
+        </script>
     </body>
-  
-
-
 </html>
