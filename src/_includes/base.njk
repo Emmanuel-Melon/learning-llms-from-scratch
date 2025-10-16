@@ -15,105 +15,105 @@
         <title>{{ title or metadata.title }}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/layout.css">
         <link rel="stylesheet" href="https://unpkg.com/lucide-static@latest/font/lucide.css"/>
         <link rel="stylesheet" href="/css/lists.css">
         <script src="https://unpkg.com/lucide@latest"></script>
-        <style>
-            :root {
-                --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            }
-            
-            body {
-                font-family: var(--font-body);
-                line-height: 1.6;
-                color: #1a1a1a;
-            }
-            
-            h1, h2, h3, h4, h5, h6 {
-                font-family: var(--font-heading);
-                font-weight: 600;
-                line-height: 1.2;
-                letter-spacing: -0.02em;
-                margin: 1.5em 0 0.75em;
-            }
-            
-            .navbar-brand {
-                font-family: var(--font-heading);
-                font-weight: 700;
-                letter-spacing: -0.01em;
-            }
-        </style>
-    </head>
-    <body>
-        <nav class="navbar-container">
-            <div class="navbar-content">
-                <a href="/" class="navbar-brand">
-                    <i data-lucide="brain" class="icon"></i>
-                    <span>Understanding AI</span>
-                </a>
-                <ul class="navbar-links">
-                    <li>
-                        <a href="/about">
-                            <i data-lucide="info" class="icon"></i>
-                            <span>About</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/outline">
-                            <i data-lucide="book-open" class="icon"></i>
-                            <span>Chapters</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <script>
-            // Initialize Lucide icons after the DOM is fully loaded
-            document.addEventListener('DOMContentLoaded', function() {
-                lucide.createIcons();
-            });
-        </script>
-        <main class="page-layout">
-            <aside class="sidebar sidebar-left">
-                <div class="sidebar-content">
-                    <h2 class="sidebar-title">
-                        <i data-lucide="book-open" class="sidebar-icon"></i>
-                        Chapters
-                    </h2>
-                    <nav class="sidebar-nav">
-                        {% for chapter in chapters %}
+        <style>:root
+        {
+            --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: #1a1a1a;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin: 1.5em 0 0.75em;
+        }
+        .navbar-brand {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar-container">
+        <div class="navbar-content">
+            <a href="/" class="navbar-brand">
+                <i data-lucide="brain" class="icon"></i>
+                <span>Understanding AI</span>
+            </a>
+            <ul class="navbar-links">
+                <li>
+                    <a href="/about">
+                        <i data-lucide="info" class="icon"></i>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/outline">
+                        <i data-lucide="book-open" class="icon"></i>
+                        <span>Chapters</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <script>
+        // Initialize Lucide icons after the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            lucide.createIcons();
+        });
+    </script>
+    <main class="page-layout">
+        <aside class="sidebar sidebar-left">
+            <div class="sidebar-content">
+                <h2 class="sidebar-title">
+                    <i data-lucide="book-open" class="sidebar-icon"></i>
+                    Chapters
+                </h2>
+                <nav class="sidebar-nav">
+                    {% for chapter in chapters %}
                         <a href="{{ chapter.url }}" class="sidebar-link" data-chapter="{{ chapter.number }}">
                             <span class="chapter-title">{{ chapter.title }}</span>
                         </a>
-                        {% endfor %}
-                    </nav>
-                </div>
-            </aside>
-            <div class="content">
-                <div class="content-header">
-                    <div class="content-title-wrapper">
-                        {% if chapterNumber %}
+                    {% endfor %}
+                </nav>
+            </div>
+        </aside>
+        <div class="content">
+            <div class="content-header">
+                <div class="content-title-wrapper">
+                    {% if chapterNumber %}
                         <span class="content-chapter-badge" data-number="{{ chapterNumber }}">{{ chapterNumber }}</span>
-                        {% endif %}
-                        <h1 class="content-title">{{ title }}</h1>
-                  
-                    </div>
-              
-                    <div class="content-navigation">
-                        <!-- Navigation arrows will go here -->
-                    </div>
-                    
+                    {% endif %}
+                    <h1 class="content-title">{{ title }}</h1>
                 </div>
-                
-                <div class="content-body">
-                    {{ content | safe }}
+                <div
+                    class="content-navigation"><!-- Navigation arrows will go here -->
                 </div>
             </div>
-            {% if tableOfContents %}
+            <div class="content-body">
+                {{ content | safe }}
+            </div>
+        </div>
+        {% if tableOfContents %}
             <aside class="sidebar sidebar-right">
                 <div class="sidebar-content">
                     <h2 class="sidebar-title">
@@ -122,110 +122,130 @@
                     </h2>
                     <nav class="toc-nav" id="toc-nav">
                         {% for item in tableOfContents %}
-                        <a href="#{{ item.id }}" class="toc-link toc-{{ item.level }}">{{ item.title }}</a>
+                            <a href="#{{ item.id }}" class="toc-link toc-{{ item.level }}">{{ item.title }}</a>
                         {% endfor %}
                     </nav>
                 </div>
             </aside>
-            {% endif %}
-        </main>
-        {% if tableOfContents %}
+        {% endif %}
+    </main>
+    {% if tableOfContents %}
         <script>
-            // Highlight active section in TOC
-            document.addEventListener('DOMContentLoaded', function() {
-                const contentBody = document.querySelector('.content-body');
-                if (contentBody) {
-                    contentBody.addEventListener('scroll', function() {
-                        const tocLinks = document.querySelectorAll('.toc-link');
-                        const headings = document.querySelectorAll('.content-body [id]');
-                        
-                        let current = '';
-                        headings.forEach(heading => {
-                            const rect = heading.getBoundingClientRect();
-                            if (rect.top <= 200) {
-                                current = heading.id;
-                            }
-                        });
-                        
-                        tocLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === '#' + current) {
-                                link.classList.add('active');
+            document.addEventListener('DOMContentLoaded', function () {
+                const tocLinks = document.querySelectorAll('.toc-link');
+                if (tocLinks.length > 0) { // Handle TOC link clicks - scroll to section
+                    tocLinks.forEach(link => {
+                        link.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            const targetId = this.getAttribute('href');
+                            if (! targetId) 
+                                return;
+                            
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) { // Add a small timeout to ensure any layout changes have completed
+                                setTimeout(() => {
+                                    const headerOffset = 100; // Adjust this value based on your header height
+                                    const elementPosition = targetElement.getBoundingClientRect().top;
+                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                                    window.scrollTo({top: offsetPosition, behavior: 'smooth'});
+                                    // Update URL without adding to history
+                                    history.pushState(null, null, targetId);
+                                }, 50);
                             }
                         });
                     });
+                    // Highlight active section in TOC on scroll
+                    function updateActiveTocLink() {
+                        const scrollPosition = window.scrollY;
+                        let current = '';
+                        document.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').forEach(section => {
+                            const sectionTop = section.offsetTop - 150; // Adjust offset as needed
+                            if (scrollPosition >= sectionTop) {
+                                current = '#' + section.id;
+                            }
+                        });
+                        tocLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === current) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                    // Initial update
+                    updateActiveTocLink();
+                    // Update on scroll
+                    window.addEventListener('scroll', updateActiveTocLink);
                 }
             });
         </script>
-        {% endif %}
-        <footer class="footer-container">
-            <div>
-                <p>&copy; 2025 Learning LLMs from Scratch</p>
-            </div>
-        </footer>
-        <script>
-            !function (t, e) {
-                var o,
-                    n,
-                    p,
-                    r;
-                e.__SV || (window.posthog && window.posthog.__loaded) || (window.posthog = e, e._i =[], e.init = function (i, s, a) {
-                    function g(t, e) {
-                        var o = e.split(".");
-                        2 == o.length && (t = t[o[0]], e = o[1]),
-                        t[e] = function () {
-                            t.push([e].concat(Array
-                                .prototype
-                                .slice
-                                .call(arguments, 0)))
-                        }
-                    }(p = t.createElement("script")).type = "text/javascript",
-                    p.crossOrigin = "anonymous",
-                    p.async = !0,
-                    p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js",
-                    (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r);
-                    var u = e;
-                    for (
-                        void 0 !== a
-                            ? u = e[a] =[]
-                            : a = "posthog",
-                        u.people = u.people || [],
-                        u.toString = function (t) {
-                        var e = "posthog";
-                            return "posthog" !== a && (e += "." + a),
-                            t || (e += " (stub)"),
-                            e
-                        },
-                        u.people.toString = function () {
-                        return u.toString(1) + ".people (stub)"
-                        },
-                        o = "init hi $r kr ui wr Er capture Ri calculateEventProperties Ir register register_once register_for_session unregister unr" +
-                            "egister_for_session Fr getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeature" +
-                            "Enrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys rend" +
-                            "erSurvey displaySurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonProp" +
-                            "ertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_" +
-                            "id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRe" +
-                            "cordingStarted captureException loadToolbar get_property getSessionProperty Cr Tr createPersonProfile Or yr Mr opt_in_ca" +
-                            "pturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_" +
-                            "opt_in_out_capturing Pr debug L Rr getPageViewId captureTraceFeedback captureTraceMetric gr".split(" "),
-                        n = 0; n < o.length; n++
-                    ) 
-                        g(u, o[n]);
-                    
-                    e._i.push([i, s, a])
-                }, e.__SV = 1)
-            }(document, window.posthog || []);
-            posthog.init('{{ env.POSTHOG_API_KEY }}', {
-                api_host: 'https://us.i.posthog.com',
-                defaults: '2025-05-24',
-                person_profiles: 'identified_only'
-            })
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                console.log('PostHog debug - API Key:', '{{ env.POSTHOG_API_KEY }}');
-                console.log('PostHog debug - window.posthog:', window.posthog);
-            });
-        </script>
-    </body>
-</html>
+    {% endif %}
+    <footer class="footer-container">
+        <div>
+            <p>&copy; 2025 Learning LLMs from Scratch</p>
+        </div>
+    </footer>
+    <script>
+        !function (t, e) {
+            var o,
+                n,
+                p,
+                r;
+            e.__SV || (window.posthog && window.posthog.__loaded) || (window.posthog = e, e._i =[], e.init = function (i, s, a) {
+                function g(t, e) {
+                    var o = e.split(".");
+                    2 == o.length && (t = t[o[0]], e = o[1]),
+                    t[e] = function () {
+                        t.push([e].concat(Array
+                            .prototype
+                            .slice
+                            .call(arguments, 0)))
+                    }
+                }(p = t.createElement("script")).type = "text/javascript",
+                p.crossOrigin = "anonymous",
+                p.async = !0,
+                p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js",
+                (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r);
+                var u = e;
+                for (
+                    void 0 !== a
+                        ? u = e[a] =[]
+                        : a = "posthog",
+                    u.people = u.people || [],
+                    u.toString = function (t) {
+                    var e = "posthog";
+                        return "posthog" !== a && (e += "." + a),
+                        t || (e += " (stub)"),
+                        e
+                    },
+                    u.people.toString = function () {
+                    return u.toString(1) + ".people (stub)"
+                    },
+                    o = "init hi $r kr ui wr Er capture Ri calculateEventProperties Ir register register_once register_for_session unregister unr" +
+                        "egister_for_session Fr getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeature" +
+                        "Enrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys rend" +
+                        "erSurvey displaySurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonProp" +
+                        "ertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_" +
+                        "id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRe" +
+                        "cordingStarted captureException loadToolbar get_property getSessionProperty Cr Tr createPersonProfile Or yr Mr opt_in_ca" +
+                        "pturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_" +
+                        "opt_in_out_capturing Pr debug L Rr getPageViewId captureTraceFeedback captureTraceMetric gr".split(" "),
+                    n = 0; n < o.length; n++
+                ) 
+                    g(u, o[n]);
+                
+                e._i.push([i, s, a])
+            }, e.__SV = 1)
+        }(document, window.posthog || []);
+        posthog.init('{{ env.POSTHOG_API_KEY }}', {
+            api_host: 'https://us.i.posthog.com',
+            defaults: '2025-05-24',
+            person_profiles: 'identified_only'
+        })
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('PostHog debug - API Key:', '{{ env.POSTHOG_API_KEY }}');
+            console.log('PostHog debug - window.posthog:', window.posthog);
+        });
+    </script>
+</body></html>

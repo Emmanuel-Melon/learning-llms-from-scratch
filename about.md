@@ -10,7 +10,7 @@ Currently combining engineering work with neuroscience studies at Arizona State 
 
 ## My Journey Into AI: From Web Performance to LLM Architecture
 
-Like many, I was fascinated by the potential of AI but found myself frustrated by the gap between high-level, "black box" explanations and the actual, hands-on implementation. The challenge wasn't *using* the tools; it was *understanding* them.
+Like many, I was fascinated by the potential of AI but found myself frustrated by the gap between high-level, "black box" explanations and the actual, hands-on implementation. The challenge wasn't _using_ the tools; it was _understanding_ them.
 
 The turning point came when **I started working on systems powered by AI**, such as semantic search engines for legal tech and media processing pipelines for video analysis. This practical need forced me to go beyond surface-level APIs and dig into the first principles.
 
@@ -25,6 +25,7 @@ This project is my attempt to document that learning journey, applying my backgr
 ## My Approach
 
 {% stylizedList "
+
   <li>Learn by Building - Every concept is paired with working code you can run.</li>
   <li>First-Principles Focus - We'll break down complex ideas into the most basic, logical pieces (like breaking down RAG into Retrieval, Augmentation, and Generation).</li>
   <li>Practical First - Focus on what you can build today with what you learn.</li>

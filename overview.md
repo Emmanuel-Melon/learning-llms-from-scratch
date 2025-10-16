@@ -16,13 +16,14 @@ This journey transformed AI from a black box into a set of understandable, compo
 
 This series is about applied AI: using existing models and concepts to build real-world systems.
 
-From **Retrieval-Augmented Generation (RAG)** to **recommendation systems**, from **neural networks** to **data embeddings**, we’ll peel back the layers of how AI *actually* works, and build working examples along the way.
+From **Retrieval-Augmented Generation (RAG)** to **recommendation systems**, from **neural networks** to **data embeddings**, we’ll peel back the layers of how AI _actually_ works, and build working examples along the way.
 
 If you’ve ever wanted to understand what happens behind the APIs, you’re in the right place.
 
 > **Disclaimer**: This isn't a traditional course or polished content from an expert. It's a collection of my personal learning journey through AI and ML—raw notes, projects that helped concepts click, and resources that actually made sense to me.
 
 ## Core Concepts
+
 We'll mostly focus on these because they're widely used in most AI powered applications.
 
 ### Large Language Models
@@ -35,6 +36,7 @@ LLMs may be used to enhance research and information retrieval in specialized ar
 ---
 
 ### Vector Dabases & Embeddings
+
 Before a model can “understand” language, it must translate words into **vectors**, mathematical fingerprints that capture meaning through proximity.
 
 Embeddings are the bridge between human thought and machine computation.  
@@ -62,6 +64,7 @@ Most guides jump straight into tool use, paid APIs, fancy frameworks, or complex
 **Then there were the technical roadblocks:**
 
 {% stylizedList "
+
   <li>Threw around terms like 'embeddings capture semantic meaning' without explaining how</li>
   <li>Skipped from 'here's the concept' straight to 'use this API'</li>
   <li>Made everything seem like magic, not math</li>
@@ -72,10 +75,10 @@ Then I discovered something powerful: **You don't need any of that to start lear
 
 That's why I decided to start building everything from scratch and running it locally in my browser. As I implemented each concept myself, the jargon transformed into clear, intuitive understanding.
 
-
 **Here's the pattern I discovered:**
 
 {% stylizedList "
+
   <li>Break it down - Every complex AI concept can be decomposed into fundamental building blocks</li>
   <li>Build it yourself - Implementing even a simple version reveals the core mechanics</li>
   <li>See the patterns - The same principles appear again and again across different applications</li>
@@ -87,7 +90,6 @@ That's why I decided to start building everything from scratch and running it lo
 When I first heard "vector embeddings," it was just another buzzword. But when I created my own word vectors by training a simple neural network to predict word contexts, I realized: **it's all about spatial relationships**. Words that appear in similar contexts end up close together in this high-dimensional space. That "384-dimensional vector" became as intuitive as placing cities on a map, of course "king" and "queen" should be neighbors!
 
 Semantic search stopped being a black box when I implemented my own similarity function. The first time I searched for "feline pets" and got results about cats, without the word "cat" appearing anywhere in the query, I understood: **it's about meaning, not keywords**. The angles between vectors in this space capture semantic relationships that simple text matching can't see.
-
 
 ### Local AI/ML
 
@@ -145,8 +147,8 @@ This is an open-source project, and I welcome contributions, corrections, and su
 
 What surprised me most was how understanding these fundamentals made it incredibly easy to pick up any ML tool or framework later. The concepts transfer much better than any specific tool's syntax ever could.
 
-
 ### The Lightbulb Moments
+
 I had a few "aha moments" as I was building some of these applications and this is what encouraged me to write about my journey.
 
 - **Weights as Importance**: When I trained my first model and saw how adjusting weights changed its predictions, I realized: these numbers aren't magic, they're just importance scores, like how you might weigh different factors when making a decision.
@@ -161,8 +163,7 @@ This hands-on approach transformed AI from a collection of buzzwords into a set 
 
 Most tutorials show you **what** to build. I'll show you how I came to understand **why** these techniques work, so you can apply them in ways I haven't even imagined.
 
-Do not worry about any of the terms above, I will try to peel back the layers of modern AI via practical examples, starting with the fundamentals and building up to complex architectures. 
-
+Do not worry about any of the terms above, I will try to peel back the layers of modern AI via practical examples, starting with the fundamentals and building up to complex architectures.
 
 In these notes, I'll share the key insights and "aha" moments that made everything click for me, so you can develop that same intuitive understanding.
 

@@ -1,6 +1,13 @@
 const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
 const socialImages = require("@11tyrocks/eleventy-plugin-social-images");
-require('dotenv').config();
+require("dotenv").config();
+
+// shortcodes
+const contentFooter = require("./src/layout/content/content-footer.js");
+const ahaMoment = require("./src/layout/aha-moment.js");
+const codeBlock = require("./src/layout/code-block.js");
+const figureBlock = require("./src/layout/figure-block.js");
+const stylizedList = require("./src/layout/stylized-list.js");
 
 module.exports = function (eleventyConfig) {
   // Copy CSS to the output directory
@@ -12,85 +19,6 @@ module.exports = function (eleventyConfig) {
   // Watch for CSS changes
   eleventyConfig.addWatchTarget("src/css/");
 
-  // Aha Moment shortcode
-  eleventyConfig.addNunjucksShortcode(
-    "ahamoment",
-    function (content, label = "AHA! Moment") {
-      // The output HTML mimics the CardWithLabel component structure
-      return `
-<div class="aha-card-container">
-  <div class="aha-card-label-wrapper">
-    ${label}
-  </div>
-  <div class="aha-card-content">
-    ${content}
-  </div>
-</div>
-      `;
-    }
-  );
-
-  // Code Block shortcode with copy functionality
-  eleventyConfig.addNunjucksShortcode(
-    "codeblock",
-    function (code, language = "") {
-      const escapedCode = code.replace(/[\\`$]/g, "\\$&");
-      return `
-<div class="code-block-container">
-  <div class="code-block-header">
-    <span class="code-block-language">${language || "code"}</span>
-    <button 
-      class="code-block-copy" 
-      onclick="navigator.clipboard.writeText('${escapedCode}');
-        const btn = this;
-        btn.textContent = 'Copied!';
-        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);"
-    >
-      Copy
-    </button>
-  </div>
-  <pre><code class="language-${language}">${code}</code></pre>
-</div>
-      `;
-    }
-  );
-
-  // Resource Links shortcode - matches aha moment style with hand-drawn elements
-  eleventyConfig.addNunjucksShortcode(
-    "resourcelinks",
-    function (links = []) {
-      if (!Array.isArray(links) || links.length === 0) return '';
-
-      const columns = links.map(link => {
-        const title = link.title || 'Link';
-        const url = link.url || '#';
-
-        return `
-          <td class="resource-link-column">
-            <a href="${url}" target="_blank" rel="noopener noreferrer" class="resource-link">
-              ${title}
-            </a>
-          </td>
-        `;
-      }).join('');
-
-      return `
-<div class="resource-links-container">
-  <div class="resource-links-label">
-    Resources
-  </div>
-  <div class="resource-links-content">
-    <table class="resource-links-table">
-      <tr>
-        ${columns}
-      </tr>
-    </table>
-  </div>
-</div>
-      `;
-    }
-  );
-
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     // Options for image processing
     widths: [300, 600, 800, null], // Explicit widths, no null
@@ -99,165 +27,28 @@ module.exports = function (eleventyConfig) {
     urlPath: "/img/", // URL path for generated images
     defaultAttributes: {
       loading: "lazy",
-      decoding: "async"
-    }
+      decoding: "async",
+    },
   });
 
   // Image with caption shortcode
-  eleventyConfig.addNunjucksShortcode("figure", function (src, alt = "", caption = "") {
-    // Generate a unique ID for the figure
-    const figureId = `figure-${Math.random().toString(36).substr(2, 9)}`;
-
-    return `
-<figure id="${figureId}" class="figure">
-  <img 
-    src="${src}" 
-    alt="${alt}" 
-    loading="lazy" 
-    decoding="async"
-    class="figure-image"
-  >
-  ${caption ? `<figcaption class="figure-caption">${caption}</figcaption>` : ''}
-</figure>
-
-<style>
-  .figure {
-    margin: 2rem auto;
-    max-width: 100%;
-    text-align: center;
-    border: 2px dashed #d1d5db;
-  }
-  .figure-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-  }
-  .figure-caption {
-    margin-top: 0.5rem;
-    border-top: 2px dashed #d1d5db;
-    font-size: 0.9em;
-    color: #666;
-    font-style: italic;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-</style>
-    `;
-  });
-
+  eleventyConfig.addNunjucksShortcode("figure", figureBlock);
+  // Aha Moment shortcode
+  eleventyConfig.addNunjucksShortcode("ahamoment", ahaMoment);
+  // Code Block shortcode with copy functionality
+  eleventyConfig.addNunjucksShortcode("codeblock", codeBlock);
   // Stylized List shortcode
-  eleventyConfig.addNunjucksShortcode(
-    'stylizedList',
-    function(content, type = 'ul') {
-      const listId = `stylized-list-${Math.random().toString(36).substr(2, 9)}`;
-      
-      return `
-<div class="stylized-list-wrapper">
-  <${type} class="stylized-list">
-    ${content}
-  </${type}>
-</div>
+  eleventyConfig.addNunjucksShortcode("stylizedList", stylizedList);
 
-<style>
-  /* Stylized List */
-  .stylized-list {
-    padding-left: 2.5rem;
-    margin: 2rem 0;
-    position: relative;
-    list-style: none;
-  }
-
-  /* Hand-drawn list items */
-  .stylized-list > li {
-    position: relative;
-    margin-bottom: 1.25rem;
-    line-height: 1.7;
-    padding-left: 1.5rem;
-  }
-
-  /* Hand-drawn bullet points */
-  .stylized-list:not(ol) > li::before {
-    content: "";
-    position: absolute;
-    left: -1.5rem;
-    top: 0.5rem;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
-    border: 2px solid #1c1917;
-    box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 1);
-    transform: rotate(15deg);
-  }
-
-  /* Hand-drawn numbers for ordered lists */
-  .stylized-list:is(ol) {
-    counter-reset: item;
-  }
-
-  .stylized-list:is(ol) > li::before {
-    counter-increment: item;
-    content: counter(item);
-    position: absolute;
-    left: -2rem;
-    top: 0;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
-    border: 2px solid #1e3a8a;
-    box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 0.8em;
-    color: #1e3a8a;
-    transform: rotate(-5deg);
-  }
-
-  /* Nested lists */
-  .stylized-list ul,
-  .stylized-list ol {
-    margin: 0.75rem 0 0.75rem 1.5rem;
-  }
-
-  /* Different colors for nested list items */
-  .stylized-list > li > ul > li::before {
-    background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 100%);
-    border-color: #3730a3;
-  }
-
-  .stylized-list > li > ol > li::before {
-    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-    border-color: #065f46;
-    color: #065f46;
-  }
-
-  /* Hand-drawn style for the last level of nesting */
-  .stylized-list > li > ul > li > ul > li::before,
-  .stylized-list > li > ol > li > ol > li::before {
-    background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
-    border-color: #991b1b;
-    transform: rotate(-15deg);
-  }
-
-  /* Hover effects */
-  .stylized-list > li:hover::before {
-    transform: scale(1.1) rotate(0deg);
-    transition: transform 0.2s ease;
-  }
-</style>
-      `;
-    }
-  );
+  // Content Footer Navigation shortcode
+  eleventyConfig.addNunjucksShortcode("contentfooter", contentFooter);
 
   eleventyConfig.addPlugin(socialImages);
 
   // Inside module.exports:
-  eleventyConfig.addGlobalData('env', {
-    POSTHOG_API_KEY: process.env.POSTHOG_API_KEY || '',
-    NODE_ENV: process.env.NODE_ENV || 'development'
+  eleventyConfig.addGlobalData("env", {
+    POSTHOG_API_KEY: process.env.POSTHOG_API_KEY || "",
+    NODE_ENV: process.env.NODE_ENV || "development",
   });
   return {
     dir: {
